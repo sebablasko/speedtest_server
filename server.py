@@ -57,6 +57,7 @@ def get_binary_file(mo_size):
 
 def upload_speedtest():
 	print dir(request)
+	b = request.data
 	return "OK"
 
 def create_random_binary_file(bytes_size):
