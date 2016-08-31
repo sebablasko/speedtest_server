@@ -23,7 +23,7 @@ def hello2():
 	return msg
 
 
-@app.route("/speedtest/<int:mo_size>")
+@app.route("/speedtest/<int:mo_size>", methods=['GET','POST'])
 def speedtest(mo_size):
 	print request.method
 	if request.method == 'POST':
