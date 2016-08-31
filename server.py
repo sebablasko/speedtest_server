@@ -33,6 +33,17 @@ def speedtest(mo_size):
 		print "download speedtest"
 		return download_speedtest(mo_size)
 
+
+@app.route("/speedtest/", methods=['POST'])
+def speedtest2(mo_size):
+	print request.method
+	if request.method == 'POST':
+		print "upload speedtest"
+		return upload_speedtest()
+	if request.method == 'GET':
+		print "download speedtest"
+		return download_speedtest(mo_size)
+
 def download_speedtest(mo_size):
 	return get_binary_file(mo_size)
 
