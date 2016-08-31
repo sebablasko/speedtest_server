@@ -35,7 +35,7 @@ def speedtest(mo_size):
 
 
 @app.route("/speedtest/", methods=['POST'])
-def speedtest2(mo_size):
+def speedtest2():
 	print request.method
 	if request.method == 'POST':
 		print "upload speedtest"
