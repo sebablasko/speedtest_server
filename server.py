@@ -26,8 +26,10 @@ def hello2():
 @app.route("/speedtest/<int:mo_size>")
 def speedtest(mo_size):
 	if request.method == 'POST':
+		print "upload speedtest"
 		return upload_speedtest()
 	if request.method == 'GET':
+		print "download speedtest"
 		return download_speedtest(mo_size)
 
 def download_speedtest(mo_size):
@@ -42,7 +44,7 @@ def get_binary_file(mo_size):
 		return get_binary_file(mo_size)
 
 def upload_speedtest():
-	print request
+	print dir(request)
 	return "OK"
 
 def create_random_binary_file(bytes_size):
