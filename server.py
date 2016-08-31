@@ -25,6 +25,7 @@ def hello2():
 
 @app.route("/speedtest/<int:mo_size>")
 def speedtest(mo_size):
+	print request.method
 	if request.method == 'POST':
 		print "upload speedtest"
 		return upload_speedtest()
