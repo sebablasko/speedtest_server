@@ -23,26 +23,17 @@ def hello2():
 	return msg
 
 
-@app.route("/speedtest/<int:mo_size>", methods=['GET','POST'])
-def speedtest(mo_size):
-	print request.method
-	if request.method == 'POST':
-		print "upload speedtest"
-		return upload_speedtest()
-	if request.method == 'GET':
-		print "download speedtest"
-		return download_speedtest(mo_size)
+@app.route("/speedtest/<int:mo_size>", methods=['GET'])
+@crossdomain(origin='*')
+def speedtest1(mo_size):
+	print "download speedtest"
+	return download_speedtest(mo_size)
 
 
 @app.route("/speedtest/", methods=['POST'])
 def speedtest2():
-	print request.method
-	if request.method == 'POST':
-		print "upload speedtest"
-		return upload_speedtest()
-	if request.method == 'GET':
-		print "download speedtest"
-		return download_speedtest(mo_size)
+	print "upload speedtest"
+	return upload_speedtest()
 
 def download_speedtest(mo_size):
 	return get_binary_file(mo_size)
