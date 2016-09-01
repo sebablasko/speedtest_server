@@ -1,6 +1,9 @@
 from flask import Flask,request
+from flask.ext.cors import CORS
 import datetime, os
 app = Flask(__name__, static_url_path='')
+CORS(app)
+
 app.config["DEBUG"] = True
 
 @app.route("/", methods=['GET'])
@@ -24,7 +27,6 @@ def hello2():
 
 
 @app.route("/speedtest/<int:mo_size>", methods=['GET'])
-@crossdomain(origin='*')
 def speedtest1(mo_size):
 	print "download speedtest"
 	return download_speedtest(mo_size)
