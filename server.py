@@ -11,7 +11,7 @@ def home():
     return "Servidor de pruebas de speedtest"
 
 @app.route("/upload", methods=['POST'])
-def hello2():
+def upload_file():
 	msg = "Request via post\n sus parametros son: \n"
 	print request
 	print request.files['uploaded_file']
