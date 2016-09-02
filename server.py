@@ -27,6 +27,8 @@ def hello2():
 
 @app.route("/speedtest/<int:mo_size>", methods=['GET'])
 def speedtest1(mo_size):
+    if mo_size > 100:
+        return 'File too big', 413
 	print "download speedtest"
 	return download_speedtest(mo_size)
 
