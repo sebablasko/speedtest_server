@@ -42,6 +42,7 @@ def download_speedtest(mo_size):
 	return get_binary_file(mo_size)
 
 def get_binary_file(mo_size):
+    print filename
 	filename = str(mo_size)+'Mo.dat'
 	try:
 		return app.send_static_file(filename)
