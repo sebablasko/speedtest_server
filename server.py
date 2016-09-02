@@ -25,7 +25,6 @@ def hello2():
 	msg += "Archivo guardado en " + filenombre
 	return msg
 
-
 @app.route("/speedtest/<int:mo_size>", methods=['GET'])
 def speedtest1(mo_size):
 	print "download speedtest"
