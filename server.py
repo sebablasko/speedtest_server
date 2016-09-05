@@ -1,4 +1,4 @@
-from flask import Flask,request
+from flask import Flask,request,render_template
 from flask.ext.cors import CORS
 import datetime, os
 app = Flask(__name__, static_url_path='')
@@ -7,8 +7,8 @@ CORS(app)
 app.config["DEBUG"] = True
 
 @app.route("/", methods=['GET'])
-def home():
-    return "Servidor de pruebas de speedtest"
+def home_html():
+    return render_template('index.html')
 
 @app.route("/upload", methods=['POST'])
 def upload_file():
