@@ -1,6 +1,6 @@
 
 # Create vEnv
-virtualenv2 venv_adkweb
+virtualenv venv_adkweb
 source venv_adkweb/bin/activate
 
 # Install requirements
