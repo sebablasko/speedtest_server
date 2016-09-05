@@ -93,6 +93,3 @@ ENV/
 
 # External Library
 static/NetworkInformation-Library/
-
-# Test Files for speedtest
-static/speedtest_files
