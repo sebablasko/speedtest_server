@@ -11,19 +11,19 @@
 	-o-transition: all .5s; -moz-transition: all .5s; -webkit-transition: all .5s; -ms-transition: all .5s; transition: all .5s;
 }
 .one{
-	left:18%;
+	left:15%;
 }
 .two{
-	left:38%;
+	left:35%;
 }
 .three{
-	left:58%;
+	left:55%;
 }
 .four{
-	left:78%;
+	left:75%;
 }
 .five{
-	left:97%;
+	left:95%;
 }
 .primary-color{
 	background-color:#4989bd;
@@ -47,5 +47,5 @@
 .spin-loading{
 	color:#4989bd;
 	font-size: 4em;
-	
+
 }
