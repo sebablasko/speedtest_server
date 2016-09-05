@@ -42,7 +42,7 @@ def download_speedtest(mo_size):
     return get_binary_file(mo_size)
 
 def get_binary_file(mo_size):
-    filename = str(mo_size)+'Mo.dat'
+    filename = "speedtest_files/" + str(mo_size) + 'Mo.dat'
     print filename
     try:
         return app.send_static_file(filename)
@@ -57,7 +57,7 @@ def upload_speedtest():
 
 def create_random_binary_file(bytes_size):
     mbytes = bytes_size/(1024**2)
-    filepath = 'static/' + str(mbytes) + "Mo.dat"
+    filepath = 'static/speedtest_files/' + str(mbytes) + "Mo.dat"
     with open(filepath, 'wb') as fout:
         fout.write(os.urandom(bytes_size))
     return fout
