@@ -3,11 +3,9 @@
 ## Installation
 1. Clone repository
   * `git clone https://github.com/sebablasko/speedtest_server.git`
-2. Install dependecies:
-  * `cd speedtest_server/`
-  * `pip install -r requirements.txt`
-3. Run server
-  * `python server.py`
+2. Run installation script
+  * `cd speedtest_server`
+  * `./install.sh`
 
 ## Usage
 The server is visible at `http://127.0.0.1:5000/`, visible for the whole network.
