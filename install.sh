@@ -1,7 +1,7 @@
 
 # Create vEnv
 echo "Creating virtual environment..."
-virtualenv venv_adkweb
+virtualenv --python=python2.7 venv_adkweb
 source venv_adkweb/bin/activate
 echo "OK"
 
