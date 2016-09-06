@@ -93,3 +93,6 @@ ENV/
 
 # External Library
 static/NetworkInformation-Library/
+
+# Virtual environment folder
+venv_adkweb/
