@@ -8,6 +8,7 @@
   * `./install.sh`
 
 ## Usage
+To start the server, just run `./run.sh`
 The server is visible at `http://127.0.0.1:5000/`, visible for the whole network.
 
 ### Download Test
