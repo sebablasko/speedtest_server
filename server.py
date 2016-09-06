@@ -1,6 +1,7 @@
 from flask import Flask,request,render_template
 from flask.ext.cors import CORS
 import datetime, os
+import pprint
 app = Flask(__name__, static_url_path='')
 CORS(app)
 
@@ -51,7 +52,11 @@ def get_binary_file(mo_size):
         return get_binary_file(mo_size)
 
 def upload_speedtest():
-    print dir(request)
+    #print dir(request)
+    print request.headers
+    print len(request.data)
+    print request.data
+    #pprint.pprint(request)
     b = request.data
     return "OK"
 
