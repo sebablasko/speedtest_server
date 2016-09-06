@@ -9,7 +9,7 @@
 
 ## Usage
 To start the server, just run `./run.sh`
-The server is visible at `http://127.0.0.1:5000/`, visible for the whole network.
+The server is visible at `http://127.0.0.1:5000/`, available for the whole network.
 
 ### Download Test
 For request data for download speedtest, make a **GET HTTP request** to `http://127.0.0.1:5000/speedtest/<size_in_mB>`, where `<size_in_mB>` is the desired size of the data to download.
