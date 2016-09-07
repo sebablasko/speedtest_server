@@ -11,19 +11,19 @@
 	-o-transition: all .5s; -moz-transition: all .5s; -webkit-transition: all .5s; -ms-transition: all .5s; transition: all .5s;
 }
 .one{
-	left:15%;
+	right: 78%;
 }
 .two{
-	left:35%;
+	right: 58%;
 }
 .three{
-	left:55%;
+	right: 38%;
 }
 .four{
-	left:75%;
+	right: 18%;
 }
 .five{
-	left:95%;
+	right: 0%;
 }
 .primary-color{
 	background-color:#4989bd;
