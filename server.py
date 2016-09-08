@@ -76,11 +76,7 @@ def create_random_binary_file(bytes_size):
 
 @app.route("/request/")
 def getRequestDetails():
-    msg = ""
-    for k in request.__dict__:
-        print k
-        msg += k + " : "+ "<br>"
-    return "<pre>%s</pre>" %msg
+    return "<pre>%s</pre>" %request.__dict__
     #return msg
 
 @app.route("/innitDB/")
