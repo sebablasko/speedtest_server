@@ -1,11 +1,17 @@
-from flask import Flask,request,render_template
+from flask import Flask,request,render_template,g
 from flask.ext.cors import CORS
 import datetime, os
 import pprint
+import sqlite3
 app = Flask(__name__, static_url_path='')
 CORS(app)
 
 app.config["DEBUG"] = True
+
+
+# DB
+DATABASE = 'database.db'
+
 
 @app.route("/", methods=['GET'])
 def home_html():
@@ -66,6 +72,57 @@ def create_random_binary_file(bytes_size):
     with open(filepath, 'wb') as fout:
         fout.write(os.urandom(bytes_size))
     return fout
+
+
+@app.route("/request/")
+def getRequestDetails():
+    msg = ""
+    for k in request.__dict__:
+        print k
+        msg += k + " : "+ "<br>"
+    return "<pre>%s</pre>" %msg
+    #return msg
+
+@app.route("/innitDB/")
+def innitDB():
+    try:
+        conn = sqlite3.connect(DATABASE)
+        cursor = conn.cursor()
+        cursor.execute('CREATE TABLE hosts (ip TEXT, port INT, country TEXT, added TIMESTAMP)')
+        conn.close()
+    except Exception as e:
+        return "ERROR"
+    return "OK"
+
+@app.before_request
+def before_request():
+    g.db = sqlite3.connect(DATABASE)
+
+@app.teardown_request
+def teardown_request(exception):
+    if hasattr(g, 'db'):
+        g.db.close()
+
+@app.route("/activeServers/", methods=['get'])
+def getActiveServers():
+    hosts = g.db.execute("SELECT * FROM hosts").fetchall()
+    return str(hosts)
+
+@app.route("/activeServers/", methods=['post'])
+def addActiveServer():
+    try:
+        ip = request.form['ip']
+        port = request.form['port']
+        country = request.form['country']
+        timestamp = request.form['timestamp']
+        print "recuperados ", ip, port, country, timestamp
+
+        g.db.execute("INSERT INTO hosts (ip,port,country,added) VALUES (?,?,?,?)",(ip,port,country,timestamp) )
+        g.db.commit()
+        return "OK"
+    except:
+        return "Error"
+
 
 @app.errorhandler(404)
 def page_not_found(error):
