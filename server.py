@@ -1,4 +1,4 @@
-from flask import Flask,request,render_template,g
+from flask import Flask,request,render_template,g,jsonify
 from flask.ext.cors import CORS
 import datetime, os
 import pprint
@@ -6,11 +6,8 @@ import sqlite3
 app = Flask(__name__, static_url_path='')
 CORS(app)
 
+
 app.config["DEBUG"] = True
-
-
-# DB
-DATABASE = 'database.db'
 
 
 @app.route("/", methods=['GET'])
@@ -76,18 +73,19 @@ def create_random_binary_file(bytes_size):
 
 @app.route("/request/")
 def getRequestDetails():
-    return "<pre>%s</pre>" %request.__dict__
-    #return msg
+    #return jsonify({'ip1' : request.remote_addr, 'host': request.host, 'host1' : request.remote_addr, 'host_url': request.host_url, "base_url":request.base_url, 'ip': dir(request), "todo" : request.environ['REMOTE_ADDR']})
+    return str(request.environ)
+    #pass
+
+# DB
+DATABASE = 'database.db'
 
 @app.route("/innitDB/")
 def innitDB():
-    try:
-        conn = sqlite3.connect(DATABASE)
-        cursor = conn.cursor()
-        cursor.execute('CREATE TABLE hosts (ip TEXT, port INT, country TEXT, added TIMESTAMP)')
-        conn.close()
-    except Exception as e:
-        return "ERROR"
+    conn = sqlite3.connect(DATABASE)
+    cursor = conn.cursor()
+    cursor.execute('CREATE TABLE IF NOT EXISTS hosts (url TEXT, ip TEXT, port INT, country TEXT, added TIMESTAMP default current_timestamp, active BOOLEAN default false, PRIMARY KEY(url,ip,port))')
+    conn.close()
     return "OK"
 
 @app.before_request
@@ -102,22 +100,18 @@ def teardown_request(exception):
 @app.route("/activeServers/", methods=['get'])
 def getActiveServers():
     hosts = g.db.execute("SELECT * FROM hosts").fetchall()
-    return str(hosts)
+    return jsonify(data=hosts)
 
 @app.route("/activeServers/", methods=['post'])
 def addActiveServer():
-    try:
-        ip = request.form['ip']
-        port = request.form['port']
-        country = request.form['country']
-        timestamp = request.form['timestamp']
-        print "recuperados ", ip, port, country, timestamp
+    url = request.base_url
+    ip = request.environ['HTTP_HOST'].split(":")[0]
+    port = request.environ['SERVER_PORT']
+    country = "none"
 
-        g.db.execute("INSERT INTO hosts (ip,port,country,added) VALUES (?,?,?,?)",(ip,port,country,timestamp) )
-        g.db.commit()
-        return "OK"
-    except:
-        return "Error"
+    g.db.execute("INSERT INTO hosts (url,ip,port,country) VALUES (?,?,?,?)",(url,ip,port,country) )
+    g.db.commit()
+    return "OK"
 
 
 @app.errorhandler(404)
