@@ -1,2 +1,4 @@
 Flask==0.10.1
 Flask-Cors==3.0.1
+SQLAlchemy==1.0.15
+Flask-SQLAlchemy==2.1

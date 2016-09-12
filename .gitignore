@@ -1,6 +1,7 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+*.pyc
 *$py.class
 
 # C extensions
@@ -92,7 +93,7 @@ ENV/
 
 
 # External Library
-static/NetworkInformation-Library/
+app/static/NetworkInformation-Library/
 
 # Virtual environment folder
 venv_adkweb/

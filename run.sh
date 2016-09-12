@@ -5,4 +5,4 @@ source venv_adkweb/bin/activate
 echo "OK"
 
 echo "Initializing server..."
-python server.py
+python runServer.py
