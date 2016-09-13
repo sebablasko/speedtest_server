@@ -1,17 +1,17 @@
 jQuery(document).ready(function() {
-	
+
     // Fullscreen background
-    $.backstretch("assets/img/backgrounds/1.jpg");
+    $.backstretch("static/img/backgrounds/1.jpg");
     $('#top-navbar-1').on('shown.bs.collapse', function(){
     	$.backstretch("resize");
     });
     $('#top-navbar-1').on('hidden.bs.collapse', function(){
     	$.backstretch("resize");
     });
-    
+
     // Form
     $('.registration-form fieldset:first-child').fadeIn('slow');
-    
+
     // next step
     $('.registration-form .btn-next').on('click', function() {
     	forwardDialog();
@@ -41,7 +41,7 @@ jQuery(document).ready(function() {
                 break;
        }
     });
-    
+
 });
 
 /* General Controls */
@@ -81,7 +81,7 @@ function updateGeneralProgressBar(){
                 stage.classList.remove("primary-color");
                 stage.classList.add("no-color");
                 $(stage).children().remove();
-            }  
+            }
         };
     };
 }
@@ -92,7 +92,7 @@ function forwardDialog(){
 
     // validate
     var next_step = $('[name="user_conn_type"]').is(':checked');
-    
+
     if( next_step ) {
         $('#alert-box').fadeOut(400);
         $(currentFieldset).fadeOut(400, function() {

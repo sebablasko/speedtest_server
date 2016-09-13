@@ -5,7 +5,11 @@ import os
 
 @app.route("/", methods=['GET'])
 def home_get():
-    return render_template('index.html')
+    return render_template('speedtest.html')
+
+@app.route("/about", methods=['GET'])
+def about_get():
+    return render_template('about.html')
 
 @app.route("/upload", methods=['POST'])
 def uploadfile():

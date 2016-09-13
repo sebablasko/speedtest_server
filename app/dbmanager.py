@@ -4,7 +4,7 @@ from flask import jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydb.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///servers.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = 'true'
 db = SQLAlchemy(app)
 
@@ -26,6 +26,8 @@ def addActiveServer(request):
     try:
         db.session.add(sitio)
         db.session.commit()
-        return getActiveServers()
+        print "addActiveServer OK"
     except IntegrityError as e:
-        return "ERROR %s" % e
+        print "addActiveServer ERROR %s" % e
+        db.session.rollback()
+    return getActiveServers()
