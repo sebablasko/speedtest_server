@@ -17,7 +17,7 @@ echo "OK"
 
 # Add external libraries
 echo "Downloading external libraries..."
-cd static
+cd app/static/
 echo "NetworkInformation-Library"
 git clone https://github.com/niclabs/NetworkInformation-Library.git
 echo "OK"
