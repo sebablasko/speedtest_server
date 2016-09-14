@@ -5,7 +5,7 @@ import os
 
 @app.route("/", methods=['GET'])
 def home_get():
-    return render_template('speedtest.html', main_server="http://127.0.0.1:5000/")
+    return render_template('speedtest.html', main_server="http://blasco.duckdns.org:5000/")
 
 @app.route("/about", methods=['GET'])
 def about_get():
