@@ -203,7 +203,8 @@
   $.post( "{{main_server}}activeServers/", function( data ) {
     $.each(data.data, function(i, field){
         var url = "http://" + field.ip_address + ":" + field.port_address + "/status/";
-        console.log(field.ip_address + "("+url+") : " + getRemote(url));
+        //console.log(field.ip_address + "("+url+") : " + getRemote(url));
+        console.log(field.ip_address + "("+field.url+") : " + getRemote(field.url));
     });
   }, 'json');
 </script>
