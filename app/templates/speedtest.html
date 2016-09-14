@@ -196,8 +196,8 @@ international_server
 
 <!-- Inicialización de valores para el examen -->
 <script type="text/javascript">
-  var file_international = "http://blasco.duckdns.org:5000/speedtest/20";
-  var file_national = "http://anakena.dcc.uchile.cl:5000/speedtest/20";
+  var file_international = "";
+  var file_national = "";
   var heimdal = new Heimdal('http://127.0.0.1:5000/echo');
 
 
@@ -222,8 +222,6 @@ international_server
   $.post( "{{main_server}}activeServers/", function( data ) {
     var lista = [];
     $.each(data.data, function(i, field){
-        var url = "http://" + field.ip_address + ":" + field.port_address + "/status/";
-        console.log(field.url+" : " + getRemote(field.url));
         if (getRemote(field.url) == 200) {
           lista.push(field.url);
           console.log(field.url + " added");
@@ -235,9 +233,6 @@ international_server
         value: item,
         text : item
       }));
-    });
-
-    $.each(lista, function (i, item) {
       $('#international_server').append($('<option>', {
         value: item,
         text : item
