@@ -48,6 +48,17 @@
                 </label>
               </div>
             </div>
+
+
+<br>
+national_server
+<select class="form-control" id="national_server">
+</select>
+<br>
+international_server
+<select class="form-control" id="international_server">
+</select>
+
           </div>
         </div>
         <div class="form-bottom">
@@ -185,10 +196,18 @@
 
 <!-- Inicialización de valores para el examen -->
 <script type="text/javascript">
-  const file_international = "http://blasco.duckdns.org:5000/speedtest/10";
-  const file_national = "http://blasco.duckdns.org:5000/speedtest/10";
+  var file_international = "http://blasco.duckdns.org:5000/speedtest/20";
+  var file_national = "http://anakena.dcc.uchile.cl:5000/speedtest/20";
   var heimdal = new Heimdal('http://127.0.0.1:5000/echo');
 
+
+  $( "#national_server" ).change(function() {
+    file_national = $( "#national_server" ).val() +  "speedtest/10";
+  });
+
+  $( "#international_server" ).change(function() {
+    file_international = $( "#international_server" ).val() +  "speedtest/10";
+  });
 
 
   function getRemote(remote_url) {
@@ -201,11 +220,30 @@
   }
 
   $.post( "{{main_server}}activeServers/", function( data ) {
+    var lista = [];
     $.each(data.data, function(i, field){
         var url = "http://" + field.ip_address + ":" + field.port_address + "/status/";
-        //console.log(field.ip_address + "("+url+") : " + getRemote(url));
-        console.log(field.ip_address + "("+field.url+") : " + getRemote(field.url));
+        console.log(field.url+" : " + getRemote(field.url));
+        if (getRemote(field.url) == 200) {
+          lista.push(field.url);
+          console.log(field.url + " added");
+        }
     });
+
+    $.each(lista, function (i, item) {
+      $('#national_server').append($('<option>', {
+        value: item,
+        text : item
+      }));
+    });
+
+    $.each(lista, function (i, item) {
+      $('#international_server').append($('<option>', {
+        value: item,
+        text : item
+      }));
+    });
+
   }, 'json');
 </script>
 {% endblock %}
