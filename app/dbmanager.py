@@ -19,7 +19,8 @@ def getActiveServers():
     return jsonify(data = [site.as_dict() for site in sitios])
 
 def addActiveServer(request):
-    url = request.base_url
+    #url = request.base_url
+    url = request.headers['Referer']
     ip = request.environ['HTTP_HOST'].split(":")[0]
     port = request.environ['SERVER_PORT']
     sitio = SpeedtestServer.SpeedtestServer(ip,port,url)

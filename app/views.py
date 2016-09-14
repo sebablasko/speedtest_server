@@ -5,11 +5,11 @@ import os
 
 @app.route("/", methods=['GET'])
 def home_get():
-    return render_template('speedtest.html')
+    return render_template('speedtest.html', main_server="http://127.0.0.1:5000/")
 
 @app.route("/about", methods=['GET'])
 def about_get():
-    return render_template('about.html')
+    return render_template('about.html', main_url="www.google.cl")
 
 @app.route("/upload", methods=['POST'])
 def uploadfile():
@@ -73,7 +73,7 @@ def activeServers_post():
 
 @app.route("/request/")
 def get_request_details():
-    return str(request.environ)
+    return str(request.headers)
 
 @app.route("/status/")
 def get_server_status():
