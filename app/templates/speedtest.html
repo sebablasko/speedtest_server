@@ -222,6 +222,7 @@ international_server
 
   $( document ).ready(function() {
     console.log( "ready to make requests" );
+    alert("ckecking servers...");
     $.post( "{{main_server}}activeServers/", function( data ) {
       var lista = [];
       $.each(data.data, function(i, field){
