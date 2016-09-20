@@ -215,30 +215,38 @@ international_server
       type: "GET",
       cache: false,
       url: remote_url,
-      async: false
+      async: false,
+      timeout: 3000
     }).status;
   }
 
-  $.post( "{{main_server}}activeServers/", function( data ) {
-    var lista = [];
-    $.each(data.data, function(i, field){
+  $( document ).ready(function() {
+    console.log( "ready to make requests" );
+    $.post( "{{main_server}}activeServers/", function( data ) {
+      var lista = [];
+      $.each(data.data, function(i, field){
         if (getRemote(field.url) == 200) {
           lista.push(field.url);
           console.log(field.url + " added");
         }
-    });
+      });
 
-    $.each(lista, function (i, item) {
-      $('#national_server').append($('<option>', {
-        value: item,
-        text : item
-      }));
-      $('#international_server').append($('<option>', {
-        value: item,
-        text : item
-      }));
-    });
+      $.each(lista, function (i, item) {
+        $('#national_server').append($('<option>', {
+          value: item,
+          text : item
+        }));
+        $('#international_server').append($('<option>', {
+          value: item,
+          text : item
+        }));
+      });
 
-  }, 'json');
+    }, 'json');
+
+  });
+
+
+
 </script>
 {% endblock %}
