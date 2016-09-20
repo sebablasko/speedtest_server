@@ -210,23 +210,31 @@ international_server
   });
 
 
-  function getRemote(remote_url) {
+  function getRemoteStatus(remote_url) {
+    console.log(remote_url + " asked");
     return $.ajax({
       type: "GET",
       cache: false,
       url: remote_url,
       async: false,
-      timeout: 3000
+      timeout: 1000,
+      crossDomain:true
     }).status;
   }
 
-  $( document ).ready(function() {
-    console.log( "ready to make requests" );
-    alert("ckecking servers...");
-    $.post( "{{main_server}}activeServers/", function( data ) {
+$( document ).ready(function() {
+  $.ajax({
+    type: 'POST',
+    timeout: 2000,
+    url : "{{main_server}}activeServers/",
+    dataType: "json",
+    async:true,
+    crossDomain:true,
+    //data: "strJsonRequest="+scoredata,
+    success: function (data)    {
       var lista = [];
       $.each(data.data, function(i, field){
-        if (getRemote(field.url) == 200) {
+        if (getRemoteStatus(field.url) == 200) {
           lista.push(field.url);
           console.log(field.url + " added");
         }
@@ -245,11 +253,15 @@ international_server
 
       $( "#national_server" ).change();
       $( "#international_server" ).change();
-      alert("done");
-
-    }, 'json');
-
+      console.log("done");
+     },
+    error: function (data, textStatus, errorThrown) {
+       if(textStatus == "timeout") {
+                alert("Got timeout");
+        }
+    }
   });
+});
 
 
 
