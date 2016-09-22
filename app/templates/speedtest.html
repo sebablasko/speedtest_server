@@ -234,7 +234,7 @@ $( document ).ready(function() {
     success: function (data)    {
       var lista = [];
       $.each(data.data, function(i, field){
-        if (getRemoteStatus(field.url) == 200) {
+        if (getRemoteStatus(field.url + "status/") == 200) {
           lista.push(field.url);
           console.log(field.url + " added");
         }
@@ -256,9 +256,10 @@ $( document ).ready(function() {
       console.log("done");
      },
     error: function (data, textStatus, errorThrown) {
-       if(textStatus == "timeout") {
-                alert("Got timeout");
-        }
+      console.log("Error en servidor directorio");
+      //if(textStatus == "timeout") {
+      //         alert("Got timeout");
+      //}
     }
   });
 });
