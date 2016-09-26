@@ -1,14 +1,14 @@
 .one, .two, .three, .four, .five{
-    position:absolute;
-	margin-top:-10px;
-	z-index:1;
-	height:40px;
-	width:40px;
-	border-radius:25px;
-	font-size: 2em;
-    color: #5bc0de;
-    padding: 4px;
-	-o-transition: all .5s; -moz-transition: all .5s; -webkit-transition: all .5s; -ms-transition: all .5s; transition: all .5s;
+  position:absolute;
+  margin-top:-10px;
+  z-index:1;
+  height:40px;
+  width:40px;
+  border-radius:25px;
+  font-size: 2em;
+  color: #5bc0de;
+  padding: 4px;
+  -o-transition: all .5s; -moz-transition: all .5s; -webkit-transition: all .5s; -ms-transition: all .5s; transition: all .5s;
 }
 .one{
 	right: 78%;
