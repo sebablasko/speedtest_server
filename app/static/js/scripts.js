@@ -65,7 +65,7 @@ function stepOff(){
 function updateGeneralProgressBar(){
     var currentState = $('#step_counter')[0].value;
     // update general test progress bar
-    $('#general-test-progress-bar')[0].style.width = String(parseInt(currentState)*20)+"%";
+    $('#general-test-progress-bar')[0].style.width = String(parseInt(currentState)*100/stepClassNames.length)+"%";
     // color stage's points
     for (var i = 0; i < stepClassNames.length; i++) {
         var stage = $(String("."+stepClassNames[i]))[0];
