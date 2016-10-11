@@ -1,0 +1,26 @@
+<!-- Paso 5 DEBE SER BORRADO PARA VALIDAR EN SERVIDOR!-->
+<fieldset>
+  <div class="form-top">
+    <div class="form-top-left">
+      <h3>Paso {{ loop.index }} de {{ loop.length }}</h3>
+    </div>
+    <div class="form-top-right">
+      <i class="fa fa-check"></i>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-main" style="text-align: justify;">
+      <h4>Detalles colectados:</h4>
+    </div>
+  </div>
+  <div class="form-bottom"></div>
+</fieldset>
+
+
+<script type="text/javascript">
+  function funStep4(){
+    var fieldsets = $('fieldset');
+    var currentFieldset = fieldsets[getCurrentStep()];
+    $('.form-main', currentFieldset).html("<pre>"+JSON.stringify(heimdal, null, 4)+"</pre>");
+  }
+</script>

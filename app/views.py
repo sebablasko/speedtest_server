@@ -5,7 +5,14 @@ import os
 
 @app.route("/", methods=['GET'])
 def home_get():
-    return render_template('speedtest.html', main_server="http://blasco.duckdns.org:5000/")
+    testDetails = {'main_server':'http://172.30.65.56:5000/',
+                    'test_steps': [
+                        'stepInnitTest.html',
+                        'stepLocation.html',
+                        'stepSpeedtest.html',
+                        'stepPings.html',
+                        'stepReport.html']}
+    return render_template('speedtest.html' , testDetails=testDetails)
 
 @app.route("/about", methods=['GET'])
 def about_get():
@@ -62,6 +69,10 @@ def create_random_binary_file(bytes_size):
     with open(filepath, 'wb') as fout:
         fout.write(os.urandom(bytes_size))
     return fout
+
+@app.route("/pingSites/", methods=['get'])
+def ping_sites_get():
+    return dbmanager.getPingSites()
 
 @app.route("/activeServers/", methods=['get'])
 def active_servers_get():

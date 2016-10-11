@@ -1,0 +1,78 @@
+<!-- Paso 4 -->
+<fieldset>
+  <div class="form-top">
+    <div class="form-top-left">
+      <h3>Paso {{ loop.index }} de {{ loop.length }}</h3>
+    </div>
+    <div class="form-top-right">
+      <i class="fa fa-circle-o-notch fa-spin"></i>
+    </div>
+    <div class="form-main">
+      <h4>Tiempos de Conectividad</h4>
+      <p>Evaluando conectividad </p>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Sitio</th>
+          </tr>
+        </thead>
+        <tbody id="ping_list_sites">
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="form-bottom">
+  </div>
+</fieldset>
+
+
+<script type="text/javascript">
+
+  function funStep3(){
+     var top_sites = $('#ping_list input:checked');
+     top_sites.map(function(i,v){addPingSite($(v).val(),i);})
+     var url_top_sites = top_sites.map(function(){return $(this).val();})
+     pingTest(url_top_sites);
+  }
+
+  function addPingSite(value, index){
+      var row = $('<tr></tr>');
+      $('<td></td>').text(index+1).appendTo(row);
+      $('<td></td>').text(value).appendTo(row);
+
+      var tableBody = $('#ping_list_sites')[0];
+      row.appendTo(tableBody);
+  }
+
+  function pingTest(list_sites){
+    var nu = heimdal.getUtilities();
+    function _callback(){
+        var pings = nu.getPings();
+        var logMsg = "Página\tTiempo (ms)\tEstado\n";
+        for(x in pings){
+            var p = pings[x];
+            if(p.status === "SUCCESS"){
+                logMsg += "\t"+p.url+"\t"+p.time+"\tAccesible\n";
+                $( "tr:contains("+p.url+")" ).attr("class", "info");
+            }else{
+                logMsg += "\t"+p.url+"\t-\tInaccesible\n";
+            }
+        }
+        console.log(logMsg);
+
+        // next step
+        goForward();
+    }
+    function earlycall(pingRecord){
+        //console.log(pingRecord.url);
+        $( "tr:contains("+pingRecord.url+")" ).attr("class", "info");
+    }
+    //heimdal.pingTest(_callback);
+    heimdal.pingTestConcurrentVersion(_callback, earlycall, list_sites);
+    /*
+    En el calculo de pings, se debería llamar la siguiente linea cuando una url esté terminada
+    $( "tr:contains(url)" ).attr("class", "info");
+    */
+  }
+</script>

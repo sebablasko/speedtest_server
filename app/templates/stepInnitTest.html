@@ -1,0 +1,193 @@
+<!-- Paso 1 -->
+<fieldset>
+  <div class="form-top">
+    <div class="form-top-left">
+      <h3>Paso {{ loop.index }} de {{ loop.length }}</h3>
+    </div>
+    <div class="form-top-right">
+      <i class="fa fa-wrench"></i>
+    </div>
+    <div class="form-main">
+      <h4>Tipo de Conexión</h4>
+      <p>Identifique su método de conexión (wifi, 3G, cableada)</p>
+      <div class="text-center">
+        <div id="alert-box-1" class="alert alert-info fade in hide">
+          Asegurese de seleccionar un <strong>tipo de conexión</strong>.
+        </div>
+        <div class="btn-group" data-toggle="buttons">
+          <label class="btn btn-default icon-selector-button">
+            <input type="radio" name="user_conn_type" value="wired"> <i class="fa fa-compress icon-selector"></i>
+            <br>
+            Cableada
+          </label>
+          <label class="btn btn-default icon-selector-button">
+            <input type="radio" name="user_conn_type" value="wifi"> <i class="fa fa-wifi icon-selector"></i>
+            <br>
+            Wi-Fi
+          </label>
+          <label class="btn btn-default icon-selector-button">
+            <input type="radio" name="user_conn_type" value="mobile"> <i class="fa fa-mobile icon-selector"></i>
+            <br>
+            Móvil
+          </label>
+        </div>
+      </div>
+      <br>
+
+      <h4>Prueba de Velocidad</h4>
+      <p>Seleccione con que servidores desea evaluar su velocidad</p>
+      <div id="alert-box-2" class="alert alert-info fade in hide">
+        Asegurese de seleccionar almenos un <strong>Servidor de Prueba</strong>.
+      </div>
+      <select name="speedtest_server_collection" class="form-control" multiple id="server_list"></select>
+      <p onclick="getSpeedTestsServers()" style="text-align: right; cursor: pointer; color: #19b9e7;">
+          <i class="fa fa-refresh"></i> Actualizar lista
+      </p>
+
+      <h4>Prueba de Conectividad</h4>
+      <p>Seleccione los sitios que desea evaluar</p>
+      <div id="alert-box-3" class="alert alert-info fade in hide">
+        Asegurese de seleccionar almenos un <strong>Sitio web</strong>.
+      </div>
+      <p id="ping_list"></p>
+      <p onclick="getPingSites()" style="text-align: right; cursor: pointer; color: #19b9e7;">
+          <i class="fa fa-refresh"></i> Actualizar lista
+      </p>
+    </div>
+  </div>
+  <div class="form-bottom">
+    <button type="button" class="btn btn-next">Comenzar</button>
+  </div>
+</fieldset>
+
+
+<script type="text/javascript">
+
+// Pings Info
+var TOP_SITES = ["https://www.youtube.com/",
+                "https://www.google.cl/",
+                "https://www.facebook.com/",
+                "http://www.biobiochile.cl/",
+                "http://www.emol.com/",
+                "http://www.lun.com/",
+                "https://www.wikipedia.org/",
+                "https://www.live.com/",
+                "https://www.yahoo.com/",
+                "http://www.bancoestado.cl/",
+                "http://www.mercadolibre.cl/",
+                "http://www.taringa.net/",
+                "http://www.mercadolibre.cl/",
+                "http://www.yapo.cl/"]
+
+
+//TOP_SITES.forEach(function(option, index){
+//  $('#ping_list').append('<div class="checkbox"><label><input type="checkbox" checked value="'+option+'">'+option+'</label></div>');
+//});
+
+// Speedtest Servers functions
+
+function getSpeedTestsServers() {
+  // Clean old server_list
+  $('#server_list option').each(function(index, option) {
+      $(option).remove()
+  });
+  // Ask directory for registered servers
+  $.ajax({
+    type: 'POST',
+    timeout: 2000,
+    url : "{{testDetails.main_server}}activeServers/",
+    dataType: "json",
+    async:false,
+    crossDomain:true,
+    //data: "strJsonRequest="+scoredata,
+    success: function (data){
+      // check every server and add it if is available
+      $.each(data.data, function(i, field){
+        checkAndAddServer(field.url);
+      });
+      console.log("Done Directory Adding");
+     },
+    error: function (data, textStatus, errorThrown) {
+      console.log("Error Directory Adding");
+    }
+  });
+}
+
+function checkAndAddServer(urlToCheck){
+  $.ajax({
+    type: "GET",
+    cache: false,
+    url: urlToCheck + "status/",
+    async: true,
+    timeout: 1000,
+    crossDomain:true,
+    success: function(){
+      console.log("added " + urlToCheck);
+      $('#server_list').append($('<option>', {
+        value: urlToCheck,
+        text : urlToCheck
+      }));
+    },
+    error: function(){
+      console.log("error in " + urlToCheck);
+    }
+  });
+}
+
+// Ping Sites List
+function getPingSites(){
+  $.ajax({
+    type: "GET",
+    cache: false,
+    url: "{{testDetails.main_server}}pingSites/",
+    dataType: "json",
+    async:false,
+    crossDomain:true,
+    success: function (data){
+      $.each(data.data, function(i, option){
+        $('#ping_list').append('<div class="checkbox"><label><input type="checkbox" checked value="'+option.url+'">'+option.name+'</label></div>');
+      });
+      console.log("Done Directory Adding");
+     },
+    error: function (data, textStatus, errorThrown) {
+      console.log("Error Directory Adding");
+    }
+  });
+}
+
+
+// Step logic functions
+
+function validateForm(){
+  var conn_type = $('[name="user_conn_type"]').is(':checked');
+  var servers_selected = $('[name="speedtest_server_collection"]').val() != null;
+  var pings_selected = $('#ping_list input:checked').size() > 0;
+
+  if (!conn_type) {
+    $('#alert-box-1').removeClass('hide');
+  }else {
+    $('#alert-box-1').addClass('hide');
+  }
+  if (!servers_selected) {
+    $('#alert-box-2').removeClass('hide');
+  }else {
+    $('#alert-box-2').addClass('hide');
+  }
+  if (!pings_selected) {
+    $('#alert-box-3').removeClass('hide');
+  }else {
+    $('#alert-box-3').addClass('hide');
+  }
+
+  return conn_type && servers_selected && pings_selected;
+}
+
+function funStep0(){
+  if (validateForm()){
+    var fieldsets = $('fieldset');
+    heimdal.addUserParam($(fieldsets[0]).find(':radio:checked').attr('name'), $(fieldsets[0]).find(':radio:checked').val());
+    goForward();
+  }
+}
+
+</script>

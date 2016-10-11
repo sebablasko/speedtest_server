@@ -1,4 +1,4 @@
-.one, .two, .three, .four, .five{
+.stage-point{
   position:absolute;
   margin-top:-10px;
   z-index:1;
@@ -10,21 +10,7 @@
   padding: 4px;
   -o-transition: all .5s; -moz-transition: all .5s; -webkit-transition: all .5s; -ms-transition: all .5s; transition: all .5s;
 }
-.one{
-	right: 78%;
-}
-.two{
-	right: 58%;
-}
-.three{
-	right: 38%;
-}
-.four{
-	right: 18%;
-}
-.five{
-	right: 0%;
-}
+
 .primary-color{
 	background-color:#4989bd;
 }
@@ -47,5 +33,4 @@
 .spin-loading{
 	color:#4989bd;
 	font-size: 4em;
-
 }

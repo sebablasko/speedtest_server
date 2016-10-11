@@ -1,0 +1,79 @@
+<!-- Paso 3 -->
+<fieldset>
+  <div class="form-top">
+    <div class="form-top-left">
+      <h3>Paso {{ loop.index }} de {{ loop.length }}</h3>
+    </div>
+    <div class="form-top-right">
+      <i class="fa fa-circle-o-notch fa-spin"></i>
+    </div>
+    <div class="form-main">
+      <h4>Evaluación de velocidad</h4>
+      <p>Analizando su velocidad de descarga en los servidores seleccionados...</p>
+      <p id="speedtest_servers_list"></p>
+    </div>
+  </div>
+  <div class="form-bottom">
+  </div>
+</fieldset>
+
+<script>
+
+  var serverIndex = 0;
+  var servers = $('[name="speedtest_server_collection"]').val();
+
+  function funStep2(){
+    serverIndex = 0;
+    servers = $('[name="speedtest_server_collection"]').val();
+    testSpeedtest();
+  }
+
+  function testSpeedtest(){
+    if (serverIndex < servers.length) {
+      createServerSpeedtestProgressEntry(servers[serverIndex++]);
+    }else{
+      setTimeout(function(){
+          goForward();
+      }, 1000);
+    }
+  }
+
+  function createServerSpeedtestProgressEntry(url){
+    var title = $("<h4>"+url+"</h4>");
+    var p1 = $("<div class='progress' style='display: initial;''>");
+    var p2 = $("<div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width: 0%;''>");
+    p2.html("0%");
+    p1.append(p2);
+    p1.append($('<br>'));
+
+    $('#speedtest_servers_list').append(title);
+    $('#speedtest_servers_list').append(p1);
+    var fileURL = url+"speedtest/10";
+    console.log(fileURL);
+    startSpeedtest(fileURL, p2);
+  }
+
+  function startSpeedtest(fileURL, progressBar){
+      var onprogress = function onprogressFun(evt){
+          if (evt.lengthComputable){
+              var percentComplete = (evt.loaded / evt.total)*100;
+              updateSpeedtestProgressbar(percentComplete, progressBar);
+              if(percentComplete >= 100){
+                  setTimeout(function(){
+                      // next step
+                      progressBar.css('background-color','#3bb733');
+                      testSpeedtest();
+                  }, 500);
+              }
+          }
+      }
+      heimdal.runTest(onprogress, fileURL);
+  }
+
+  function updateSpeedtestProgressbar(currentPercent, progressBar){
+      var percentValue = String(Math.floor(currentPercent)+'%');
+      progressBar.css('width', percentValue);
+      progressBar.text(percentValue);
+  }
+
+</script>

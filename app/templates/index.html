@@ -23,6 +23,21 @@
       <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
       <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
       -->
+
+
+      <!-- Javascript -->
+      <!-- Estilo -->
+      <script src="{{ url_for('static', filename='js/jquery-1.11.1.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/jquery.backstretch.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/retina-1.1.0.min.js') }}"></script>
+      <!-- Locales -->
+      <!--
+      <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    -->
+
+      {% block customJS %}{% endblock %}
+
   </head>
 
   <body>
@@ -82,17 +97,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Javascript -->
-    <!-- Estilo -->
-    <script src="{{ url_for('static', filename='js/jquery-1.11.1.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/jquery.backstretch.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/retina-1.1.0.min.js') }}"></script>
-    <!-- Locales -->
-    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
-
-    {% block customJS %}{% endblock %}
 
   </body>
 </html>
