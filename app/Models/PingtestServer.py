@@ -1,13 +1,12 @@
 from app.dbmanager import db
 
-class SpeedtestServer(db.Model):
+class PingtestServer(db.Model):
     url = db.Column(db.String(120), primary_key=True)
     name = db.Column(db.String(120))
-    country = db.Column(db.String(120))
-    added = db.Column(db.DateTime, server_default=db.func.current_timestamp())
 
-    def __init__(self, url):
-        super(SpeedtestServer, self).__init__()
+    def __init__(self, name, url):
+        super(PingtestServer, self).__init__()
+        self.name = name
         self.url = url
 
     def __repr__(self):
