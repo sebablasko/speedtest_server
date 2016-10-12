@@ -17,10 +17,18 @@ def innitDB():
 
 def setPingSites():
     pingList = []
-    pingList.append(PingtestServer.PingtestServer("Google", "https://www.google.com"))
-    pingList.append(PingtestServer.PingtestServer("Facebook", "https://www.facebook.com"))
-    pingList.append(PingtestServer.PingtestServer("Universidad de Chile", "https://www.uchile.cl"))
-    pingList.append(PingtestServer.PingtestServer("Yapo", "https://www.yapo.cl"))
+    pingList.append(PingtestServer.PingtestServer("https://www.youtube.com/", "youtube"))
+    pingList.append(PingtestServer.PingtestServer("https://www.google.cl/", "google"))
+    pingList.append(PingtestServer.PingtestServer("https://www.facebook.com/", "facebook"))
+    pingList.append(PingtestServer.PingtestServer("http://www.biobiochile.cl/", "biobiochile"))
+    pingList.append(PingtestServer.PingtestServer("http://www.lun.com/", "lun"))
+    pingList.append(PingtestServer.PingtestServer("https://www.wikipedia.org/", "wikipedia"))
+    pingList.append(PingtestServer.PingtestServer("https://www.live.com/", "live"))
+    pingList.append(PingtestServer.PingtestServer("https://www.yahoo.com/", "yahoo"))
+    pingList.append(PingtestServer.PingtestServer("http://www.bancoestado.cl/", "bancoestado"))
+    pingList.append(PingtestServer.PingtestServer("http://www.mercadolibre.cl/", "mercadolibre"))
+    pingList.append(PingtestServer.PingtestServer("http://www.taringa.net/", "taringa"))
+    pingList.append(PingtestServer.PingtestServer("http://www.yapo.cl/", "yapo"))
 
     for pingSite in pingList:
         try:
