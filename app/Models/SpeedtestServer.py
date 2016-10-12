@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from app.dbmanager import db
 
 class SpeedtestServer(db.Model):

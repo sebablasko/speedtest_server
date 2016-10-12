@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import datetime
 from app import app
 from flask import jsonify
@@ -17,18 +20,18 @@ def innitDB():
 
 def setPingSites():
     pingList = []
-    pingList.append(PingtestServer.PingtestServer("https://www.youtube.com/", "youtube"))
-    pingList.append(PingtestServer.PingtestServer("https://www.google.cl/", "google"))
-    pingList.append(PingtestServer.PingtestServer("https://www.facebook.com/", "facebook"))
-    pingList.append(PingtestServer.PingtestServer("http://www.biobiochile.cl/", "biobiochile"))
-    pingList.append(PingtestServer.PingtestServer("http://www.lun.com/", "lun"))
-    pingList.append(PingtestServer.PingtestServer("https://www.wikipedia.org/", "wikipedia"))
-    pingList.append(PingtestServer.PingtestServer("https://www.live.com/", "live"))
-    pingList.append(PingtestServer.PingtestServer("https://www.yahoo.com/", "yahoo"))
-    pingList.append(PingtestServer.PingtestServer("http://www.bancoestado.cl/", "bancoestado"))
-    pingList.append(PingtestServer.PingtestServer("http://www.mercadolibre.cl/", "mercadolibre"))
-    pingList.append(PingtestServer.PingtestServer("http://www.taringa.net/", "taringa"))
-    pingList.append(PingtestServer.PingtestServer("http://www.yapo.cl/", "yapo"))
+    pingList.append(PingtestServer.PingtestServer("YouTube", "https://www.youtube.com/"))
+    pingList.append(PingtestServer.PingtestServer("Google", "https://www.google.cl/"))
+    pingList.append(PingtestServer.PingtestServer("Facebook", "https://www.facebook.com/"))
+    pingList.append(PingtestServer.PingtestServer("Radio BioBio Chile", "http://www.biobiochile.cl/"))
+    pingList.append(PingtestServer.PingtestServer("Las Ultimas Noticias", "http://www.lun.com/"))
+    pingList.append(PingtestServer.PingtestServer("Wikipedia", "https://www.wikipedia.org/"))
+    pingList.append(PingtestServer.PingtestServer("Live", "https://www.live.com/"))
+    pingList.append(PingtestServer.PingtestServer("Yahoo", "https://www.yahoo.com/"))
+    pingList.append(PingtestServer.PingtestServer("Banco Estado", "http://www.bancoestado.cl/"))
+    pingList.append(PingtestServer.PingtestServer("Mercadolibre", "http://www.mercadolibre.cl/"))
+    pingList.append(PingtestServer.PingtestServer("Taringa", "http://www.taringa.net/"))
+    pingList.append(PingtestServer.PingtestServer("Yapo", "http://www.yapo.cl/"))
 
     for pingSite in pingList:
         try:
