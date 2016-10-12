@@ -21,6 +21,7 @@
     <form role="form" action="" method="post" class="registration-form">
       {% for step in testDetails.test_steps %}
         {% include step %}
+        <p style="visibility: hidden">{{ loop.index }}</p>
       {% endfor %}
 
       <input type="hidden" value="0" id="step_counter" >
