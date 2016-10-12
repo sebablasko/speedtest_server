@@ -63,34 +63,12 @@
 
 <script type="text/javascript">
 
-// Pings Info
-var TOP_SITES = ["https://www.youtube.com/",
-                "https://www.google.cl/",
-                "https://www.facebook.com/",
-                "http://www.biobiochile.cl/",
-                "http://www.emol.com/",
-                "http://www.lun.com/",
-                "https://www.wikipedia.org/",
-                "https://www.live.com/",
-                "https://www.yahoo.com/",
-                "http://www.bancoestado.cl/",
-                "http://www.mercadolibre.cl/",
-                "http://www.taringa.net/",
-                "http://www.mercadolibre.cl/",
-                "http://www.yapo.cl/"]
-
-
-//TOP_SITES.forEach(function(option, index){
-//  $('#ping_list').append('<div class="checkbox"><label><input type="checkbox" checked value="'+option+'">'+option+'</label></div>');
-//});
-
 // Speedtest Servers functions
 
 function getSpeedTestsServers() {
   // Clean old server_list
-  $('#server_list option').each(function(index, option) {
-      $(option).remove()
-  });
+  $('#server_list option').remove();
+  
   // Ask directory for registered servers
   $.ajax({
     type: 'POST',
@@ -135,7 +113,12 @@ function checkAndAddServer(urlToCheck){
 }
 
 // Ping Sites List
+
 function getPingSites(){
+  // Remove others ping sites
+  $('#ping_list .checkbox').remove()
+
+  // ask for ping sites
   $.ajax({
     type: "GET",
     cache: false,
