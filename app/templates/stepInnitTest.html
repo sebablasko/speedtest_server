@@ -81,29 +81,30 @@ function getSpeedTestsServers() {
     success: function (data){
       // check every server and add it if is available
       $.each(data.data, function(i, field){
-        checkAndAddServer(field.url);
+        checkAndAddServer(field);
       });
-      console.log("Done Directory Adding");
+      console.log("Done SpeedTest Servers Directory Adding");
      },
     error: function (data, textStatus, errorThrown) {
-      console.log("Error Directory Adding");
+      console.log("Error SpeedTest Servers Directory Adding");
     }
   });
 }
 
-function checkAndAddServer(urlToCheck){
+function checkAndAddServer(siteToCheck){
   $.ajax({
     type: "GET",
     cache: false,
-    url: urlToCheck + "status/",
+    url: siteToCheck.url + "status/",
     async: true,
     timeout: 1000,
     crossDomain:true,
     success: function(){
-      console.log("added " + urlToCheck);
+      console.log("added " + siteToCheck.url);
       $('#server_list').append($('<option>', {
-        value: urlToCheck,
-        text : urlToCheck
+        value: siteToCheck.url,
+        text : siteToCheck.name != null ? siteToCheck.name + ", " + siteToCheck.country : siteToCheck.url
+        //text : urlToCheck
       }));
     },
     error: function(){
@@ -130,10 +131,10 @@ function getPingSites(){
       $.each(data.data, function(i, option){
         $('#ping_list').append('<div class="checkbox"><label><input type="checkbox" checked value="'+option.url+'">'+option.name+'</label></div>');
       });
-      console.log("Done Directory Adding");
+      console.log("Done Ping Servers Directory Adding");
      },
     error: function (data, textStatus, errorThrown) {
-      console.log("Error Directory Adding");
+      console.log("Error Ping Servers Directory Adding");
     }
   });
 }
