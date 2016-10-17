@@ -7,11 +7,11 @@ from flask import jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
 
+from Models import SpeedtestServer, PingtestServer
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///adkDB.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = 'true'
 db = SQLAlchemy(app)
-
-from Models import SpeedtestServer, PingtestServer
 
 def innitDB():
     db.create_all()
